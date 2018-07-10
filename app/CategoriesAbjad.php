@@ -1,0 +1,31 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class CategoriesAbjad extends Model {
+	use SoftDeletes;
+	protected $table    = 'categories_abjad';
+	protected $dates    = ['deleted_at'];
+	protected $fillable = [
+		'id',
+		'name',
+		'media_id',
+		'mobile_media_id',
+		'meta_title',
+		'meta_description',
+		'meta_tags',
+		'created_by',
+	];
+	public function user() {
+		return $this->hasMany('App\Categories', 'categories_abjad_id');
+	}
+	public function media() {
+		return $this->belongsTo('App\Media', 'media_id');
+	}
+	public function mobile_media() {
+		return $this->belongsTo('App\Media', 'mobile_media_id');
+	}
+}
